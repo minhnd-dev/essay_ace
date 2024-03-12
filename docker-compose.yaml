@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  databae:
+    image: postgres:16.2
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=essay_ace
+    volumes:
+      - ./data/postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+  backend:
+    image: ducminhdev/essay_ace:latest
+    expose:
+      - "5000"
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+    command: ["python", "main.py"]
+  frontend:
+    image: ducminhdev/essay_ace_fe:latest
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    command: ["npm", "run", "dev"]

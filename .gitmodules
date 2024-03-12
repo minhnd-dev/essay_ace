@@ -1,0 +1,6 @@
+[submodule "backend"]
+	path = backend
+	url = https://github.com/minhnd-dev/essay_ace_backend
+[submodule "frontend"]
+	path = frontend
+	url = https://github.com/minhnd-dev/essay_ace_frontend
