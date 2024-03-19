@@ -1,6 +1,6 @@
 version: '3.8'
 services:
-  databae:
+  database:
     image: postgres:16.2
     environment:
       - POSTGRES_USER=postgres
@@ -8,6 +8,8 @@ services:
       - POSTGRES_DB=essay_ace
     volumes:
       - ./data/postgres-data:/var/lib/postgresql/data
+    expose:
+      - "5432"
     ports:
       - "5432:5432"
   backend:
@@ -18,7 +20,11 @@ services:
       - "5000:5000"
     volumes:
       - ./backend:/app
-    command: ["python", "main.py"]
+    env_file:
+      - environments/backend.env
+    command: bash -c "python main.py"
+    depends_on:
+      - database
   frontend:
     image: ducminhdev/essay_ace_fe:latest
     expose:
